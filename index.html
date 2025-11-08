@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Люблю тебя 💖</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: url('https://abrakadabra.fun/uploads/posts/2022-02/1644388892_1-abrakadabra-fun-p-zadnii-fon-dlya-saita-1.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* Музыка */
+.music-button {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 2000;
+  background: rgba(34,34,34,0.75);
+  border: none;
+  color: #fff;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor:pointer;
+  backdrop-filter: blur(4px);
+  font-size:16px;
+}
+.music-button:active{ transform: translateY(1px); }
+
+/* Люблю тебя */
+h1 {
+  margin-top: 70px;
+  font-size: 3em;
+  color: #ff4d4d;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+  cursor: pointer;
+  display:inline-block;
+  position: relative;
+  z-index: 10;
+  user-select: none;
+}
+
+/* Сердечки */
+.heart {
+  position: absolute;
+  pointer-events: none;
+  font-size: 18px;
+  animation: heartFloat 2600ms ease-out forwards;
+  z-index: 1500;
+}
+@keyframes heartFloat {
+  0%   { transform: translateY(0) scale(0.8); opacity:1; }
+  100% { transform: translateY(-260px) scale(1.4); opacity:0; }
+}
+
+/* Галерея */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  padding: 40px 24px;
+  max-width: 1100px;
+  margin: 0 auto 50px;
+}
+.gallery img {
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  transition: transform .25s ease, box-shadow .25s ease;
+  cursor:pointer;
+}
+.gallery img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+}
+
+/* Кнопка-сердце */
+.heart-button-container {
+  display:flex;
+  justify-content:center;
+  margin: 40px auto 30px;
+}
+.heart-button {
+  position: relative;
+  width: 200px;
+  height: 160px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  color:#fff;
+  font-weight:700;
+  font-size:1.2rem;
+  transition: transform .2s ease;
+  z-index: 20;
+}
+.heart-button span { position:relative; z-index:30; }
+.heart-button::before,
+.heart-button::after{
+  content:"";
+  position:absolute;
+  width: 110px;
+  height: 160px;
+  border-radius: 100px 100px 0 0;
+  border: 3px solid #ff4d4d;
+  background: transparent;
+  top:0;
+  left:45px;
+  transform: rotate(-45deg);
+  transition: all .25s ease;
+  z-index:10;
+}
+.heart-button::after {
+  left:auto;
+  right:45px;
+  transform: rotate(45deg);
+}
+.heart-button:hover {
+  transform: scale(1.05);
+}
+.heart-button:hover::before,
+.heart-button:hover::after {
+  border-color: #ff9aa2;
+  box-shadow: 0 0 18px rgba(255,77,77,0.6);
+}
+
+/* Видео */
+.video-container {
+  text-align:center;
+  margin: 20px auto 70px;
+  max-width: 1000px;
+  padding: 0 18px;
+}
+.video-container video {
+  width: 95%;
+  max-width: 950px;
+  height: 700px; /* высота видео увеличена */
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.6);
+}
+
+/* Миниатюры */
+.video-thumbnails {
+  margin-top: 18px;
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  flex-wrap:wrap;
+}
+.video-thumbnails img {
+  width:130px;
+  height:75px;
+  object-fit:cover;
+  border-radius:8px;
+  border:2px solid rgba(255,255,255,0.9);
+  cursor:pointer;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.video-thumbnails img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+}
+
+/* Lightbox */
+#lightbox {
+  display:none;
+  position:fixed;
+  inset:0;
+  background: rgba(0,0,0,0.85);
+  justify-content:center;
+  align-items:center;
+  z-index:3000;
+}
+#lightbox img {
+  max-width:92%;
+  max-height:92%;
+  border-radius:10px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+</style>
+</head>
+<body>
+
+<button class="music-button" id="musicBtn">🎵 Включить музыку</button>
+<audio id="bgMusic" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<h1 id="loveText">Люблю тебя</h1>
+
+<!-- Галерея -->
+<div class="gallery">
+  <img src="new/photo_2025-09-04_01-14-15 (2).jpg" alt="1">
+  <img src="new/photo_2025-09-04_01-14-16 (2).jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-16 (3).jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-16 (4).jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-16.jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-17 (2).jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-17.jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-18 (2).jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-18 (3).jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-18 (4).jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-18.jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-19 (2).jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-19 (3).jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-19.jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-20 (2).jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-20 (3).jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-20 (4).jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-20 (5).jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-20.jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-21 (2).jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-21 (3).jpg" alt="">
+  <img src="new/photo_2025-09-04_01-14-21.jpg" alt="">
+  <img src="new/photo_2025-09-08_02-25-33.jpg" alt="">
+  <img src="new/photo_2025-09-08_02-25-34.jpg" alt="">
+</div>
+
+<!-- Кнопка "Для тебя" -->
+<div class="heart-button-container">
+  <a class="heart-button" href="file:///C:/Users/aZaMaT/Desktop/Untitled-2.html"><span>Для тебя 💖</span></a>
+</div>
+
+<!-- Видео -->
+<div class="video-container">
+  <video id="forYouVideo" controls>
+    <source src="videos/IMG_9197.MP4" type="video/mp4">
+  </video>
+
+  <!-- Миниатюры видео -->
+  <div class="video-thumbnails">
+    <img src="thumbs/1.jpg" alt="Видео 1" data-src="videos/video1.mp4">
+    <img src="thumbs/2.jpg" alt="Видео 2" data-src="videos/video2.mp4">
+    <img src="thumbs/3.jpg" alt="Видео 3" data-src="videos/video3.mp4">
+    <img src="thumbs/4.jpg" alt="Видео 3" data-src="videos/video4.mp4">
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="this.style.display='none'">
+  <img id="lightboxImg" src="">
+</div>
+
+<script>
+/* Музыка */
+const musicBtn = document.getElementById('musicBtn');
+const bgMusic = document.getElementById('bgMusic');
+function updateMusicLabel(){
+  musicBtn.textContent = bgMusic.paused ? '🎵 Включить музыку' : '⏸ Остановить';
+}
+musicBtn.onclick = ()=>{ bgMusic.paused ? bgMusic.play() : bgMusic.pause(); updateMusicLabel(); };
+updateMusicLabel();
+
+/* Галерея */
+document.querySelectorAll('.gallery img').forEach(img=>{
+  img.addEventListener('click',()=>{
+    const lightbox=document.getElementById('lightbox');
+    const imgTag=document.getElementById('lightboxImg');
+    imgTag.src=img.src;
+    lightbox.style.display='flex';
+  });
+});
+
+/* Сердечки */
+const loveText = document.getElementById('loveText');
+loveText.addEventListener('click', () => {
+  const rect = loveText.getBoundingClientRect();
+  for(let i=0;i<25;i++){
+    const heart=document.createElement('div');
+    heart.classList.add('heart');
+    heart.textContent='💖';
+    heart.style.left=(rect.left+Math.random()*rect.width)+'px';
+    heart.style.top=(rect.top+Math.random()*rect.height)+'px';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),2600);
+  }
+});
+
+/* Видео с миниатюрами */
+const thumbs=document.querySelectorAll('.video-thumbnails img');
+const video=document.getElementById('forYouVideo');
+thumbs.forEach(t=>{
+  t.addEventListener('click',()=>{
+    const newSrc = t.dataset.src;
+    video.pause();        // остановка текущего видео
+    video.src = newSrc;   // замена источника
+    video.load();         // перезагрузка плеера
+    video.play();         // авто-воспроизведение
+  });
+});
+</script>
+
+</body>
+</html>
+
