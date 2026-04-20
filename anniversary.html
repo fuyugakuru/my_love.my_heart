@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>С годовщиной 💖</title>
+
+<style>
+body {
+  margin:0;
+  font-family: Arial, sans-serif;
+  background: url('https://abrakadabra.fun/uploads/posts/2022-02/1644388892_1-abrakadabra-fun-p-zadnii-fon-dlya-saita-1.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+  text-align: center;
+}
+
+/* контейнер */
+.container {
+  max-width: 900px;
+  margin: 80px auto;
+  background: rgba(0,0,0,0.45);
+  padding: 30px;
+  border-radius: 16px;
+}
+
+/* заголовок */
+h1 {
+  font-size: 3em;
+  color: #ff4d4d;
+  cursor: pointer;
+}
+
+/* таймер */
+.timer {
+  font-size: 1.8em;
+  margin: 20px 0;
+  color: #ff9aa2;
+}
+
+/* текст */
+p {
+  font-size: 1.2em;
+  line-height: 1.6em;
+  text-align: justify;
+}
+
+/* кнопка назад */
+.back {
+  margin-top: 30px;
+  display: inline-block;
+  background: #ff4d4d;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #fff;
+}
+
+/* сердечки */
+.heart {
+  position: absolute;
+  animation: float 3s linear forwards;
+}
+@keyframes float {
+  from {transform: translateY(0); opacity:1;}
+  to {transform: translateY(-200px); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1 id="title">С годовщиной 💖</h1>
+
+  <div class="timer" id="timer"></div>
+
+  <p>
+    Сегодня особенный день. День, когда началась наша история.  
+    С тех пор моя жизнь изменилась, потому что в ней появилась ты.  
+    Каждый день рядом с тобой — это подарок, который я никогда не перестану ценить.  
+    Спасибо тебе за всё: за улыбки, за тепло, за любовь.  
+    Я хочу, чтобы это было только начало нашей истории 💖
+  </p>
+
+  <a href="index.html" class="back">← На главную</a>
+</div>
+
+<script>
+// дата начала отношений (измени здесь!)
+const startDate = new Date("2024-01-01");
+
+function updateTimer() {
+  const now = new Date();
+  const diff = now - startDate;
+
+  const days = Math.floor(diff / (1000*60*60*24));
+  const hours = Math.floor((diff / (1000*60*60)) % 24);
+  const minutes = Math.floor((diff / (1000*60)) % 60);
+
+  document.getElementById("timer").innerText =
+    `Мы вместе: ${days} дней ${hours} часов ${minutes} минут 💖`;
+}
+
+setInterval(updateTimer, 1000);
+updateTimer();
+
+/* сердечки */
+document.getElementById("title").onclick = () => {
+  for(let i=0;i<20;i++){
+    let h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "💖";
+    h.style.left = Math.random()*window.innerWidth + "px";
+    h.style.top = "50%";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),3000);
+  }
+};
+</script>
+
+</body>
+</html>
