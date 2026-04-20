@@ -131,6 +131,9 @@ h1 {
   box-shadow: 0 0 18px rgba(255,77,77,0.6);
 }
 
+
+
+
 /* Видео */
 .video-container {
   text-align:center;
@@ -185,13 +188,35 @@ h1 {
   border-radius:10px;
   box-shadow: 0 12px 40px rgba(0,0,0,0.6);
 }
+
+
+
+.anniversary-btn {
+  display: inline-block;
+  padding: 8px 18px;
+  font-size: 16px;
+  color: #ffffff;
+  text-decoration: none;
+  border: 2px solid #ff4d4d;
+  border-radius: 10px;
+  background: transparent;
+  transition: all 0.25s ease;
+}
+
+.anniversary-btn:hover {
+  color: #fff;
+  border-color: #ff9aa2;
+  box-shadow: 0 0 18px rgba(255, 77, 77, 0.6),
+              0 0 35px rgba(255, 77, 77, 0.3);
+  transform: scale(1.05);
+}
 </style>
 </head>
 <body>
 
 <button class="music-button" id="musicBtn">🎵 Включить музыку</button>
 <audio id="bgMusic" loop>
-  <source src="videos/Chase Atlantic Right Here.mp3" type="audio/mpeg">
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
 </audio>
 
 <h1 id="loveText">Люблю тебя</h1>
@@ -226,7 +251,13 @@ h1 {
 
 <!-- Кнопка "Для тебя" -->
 <div class="heart-button-container">
-  <a class="heart-button" href=" https://fuyugakuru.github.io/my_love.my_heart/letter.html"><span>Для тебя 💖</span></a>
+  <a class="heart-button" href="file:///C:/Users/aZaMaT/Desktop/Untitled-2.html"><span>Для тебя 💖</span></a>
+</div>
+
+<div style="text-align:center; margin-top:15px;">
+  <a href="anniversary.html" class="anniversary-btn">
+    Наш День 💖
+  </a>
 </div>
 
 <!-- Видео -->
@@ -300,7 +331,5 @@ thumbs.forEach(t=>{
 
 </body>
 </html>
-
-
 
 
