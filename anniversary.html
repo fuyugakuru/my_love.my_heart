@@ -15,7 +15,6 @@ body {
   text-align: center;
 }
 
-/* контейнер */
 .container {
   max-width: 900px;
   margin: 80px auto;
@@ -24,28 +23,45 @@ body {
   border-radius: 16px;
 }
 
-/* заголовок */
 h1 {
   font-size: 3em;
   color: #ff4d4d;
   cursor: pointer;
 }
 
-/* таймер */
 .timer {
   font-size: 1.8em;
   margin: 20px 0;
   color: #ff9aa2;
 }
 
-/* текст */
-p {
-  font-size: 1.2em;
-  line-height: 1.6em;
-  text-align: justify;
+/* кнопка */
+button {
+  margin-top:20px;
+  padding:12px 24px;
+  font-size:18px;
+  background:#ff4d4d;
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
 }
 
-/* кнопка назад */
+/* текст */
+#subtitles {
+  margin-top:25px;
+  font-size:1.3em;
+  min-height:60px;
+  text-align:left;
+}
+
+/* сердечки */
+.heart {
+  position:absolute;
+  font-size:20px;
+  animation: float 3s linear forwards;
+}
+
 .back {
   margin-top: 30px;
   display: inline-block;
@@ -54,13 +70,14 @@ p {
   border-radius: 8px;
   text-decoration: none;
   color: #fff;
+  transition: 0.3s;
 }
 
-/* сердечки */
-.heart {
-  position: absolute;
-  animation: float 3s linear forwards;
+.back:hover {
+  background: #ff7a7a;
+  transform: scale(1.05);
 }
+
 @keyframes float {
   from {transform: translateY(0); opacity:1;}
   to {transform: translateY(-200px); opacity:0;}
@@ -71,41 +88,50 @@ p {
 <body>
 
 <div class="container">
+
   <h1 id="title">С годовщиной 💖</h1>
 
   <div class="timer" id="timer"></div>
 
-  <p>
-    Сегодня особенный день. День, когда началась наша история.  
-    С тех пор моя жизнь изменилась, потому что в ней появилась ты.  
-    Каждый день рядом с тобой — это подарок, который я никогда не перестану ценить.  
-    Спасибо тебе за всё: за улыбки, за тепло, за любовь.  
-    Я хочу, чтобы это было только начало нашей истории 💖
-  </p>
+  <button id="loveBtn">Нажми 💖</button>
+
+  <p id="subtitles"></p>
 
   <a href="index.html" class="back">← На главную</a>
+
+  <audio id="voiceAudio">
+    <source src="audio/voice.mp3" type="audio/mpeg">
+  </audio>
+
 </div>
 
 <script>
-// дата начала отношений (измени здесь!)
-const startDate = new Date("2024-01-01");
+// ===== ТАЙМЕР =====
+const startDate = new Date("2025-04-23T00:00:00");
 
 function updateTimer() {
   const now = new Date();
-  const diff = now - startDate;
+  let diff = now - startDate;
 
   const days = Math.floor(diff / (1000*60*60*24));
-  const hours = Math.floor((diff / (1000*60*60)) % 24);
-  const minutes = Math.floor((diff / (1000*60)) % 60);
+  diff %= (1000*60*60*24);
+
+  const hours = Math.floor(diff / (1000*60*60));
+  diff %= (1000*60*60);
+
+  const minutes = Math.floor(diff / (1000*60));
+  diff %= (1000*60);
+
+  const seconds = Math.floor(diff / 1000);
 
   document.getElementById("timer").innerText =
-    `Мы вместе: ${days} дней ${hours} часов ${minutes} минут 💖`;
+    `Мы вместе: ${days} дней ${hours} часов ${minutes} минут ${seconds} секунд 💖`;
 }
 
 setInterval(updateTimer, 1000);
 updateTimer();
 
-/* сердечки */
+// ===== СЕРДЕЧКИ =====
 document.getElementById("title").onclick = () => {
   for(let i=0;i<20;i++){
     let h = document.createElement("div");
@@ -117,6 +143,86 @@ document.getElementById("title").onclick = () => {
     setTimeout(()=>h.remove(),3000);
   }
 };
+
+// ===== ТЕКСТ =====
+const btn = document.getElementById("loveBtn");
+const audio = document.getElementById("voiceAudio");
+const subtitles = document.getElementById("subtitles");
+
+// текст по времени
+const lines = [
+  { time: 0, text: "Я ЛЮБЛЮ ТЕБЯ..." },
+  { time: 4, text: "Сегодня прошёл год с тех пор, как мы вместе." },
+  { time: 9, text: "Прошло столько времени, мы встретили много трудностей," },
+  { time: 13, text: "но и счастливых моментов было много." },
+  { time: 18, text: "Я очень рад, что в моей жизни появилась ты." },
+  { time: 24, text: "Ты самое лучшее, что случалось со мной." },
+  { time: 30, text: "Я всё время любил тебя, люблю и буду любить." },
+  { time: 38, text: "С тобой всё становится проще… спокойнее… теплее." },
+  { time: 45, text: "Я ценю каждый момент, который мы проводим вместе." },
+  { time: 52, text: "Даже обычные дни с тобой становятся особенными." },
+  { time: 60, text: "Ты очень дорога мне." },
+  { time: 66, text: "И что бы ни происходило, я буду рядом." },
+  { time: 72, text: "Ты — моё счастье, мой смысл жизни и мой дом." },
+  { time: 80, text: "Я думаю о тебе каждый день, каждый миг." },
+  { time: 88, text: "Я не хочу тебя потерять." },
+  { time: 96, text: "Я хочу прожить с тобой всю жизнь." },
+  { time: 104, text: "Моя любимая… давай будем вместе всегда." },
+  { time: 110, text: "Я люблю тебя до безумия..." }
+];
+
+// печать текста
+function typeText(element, text) {
+  let i = 0;
+
+  function type() {
+    if (i < text.length) {
+      element.innerHTML += (text[i] === " ") ? "&nbsp;" : text[i];
+      i++;
+      setTimeout(type, 35);
+    }
+  }
+
+  type();
+}
+
+// запуск
+btn.addEventListener("click", () => {
+  audio.currentTime = 0;
+  audio.play();
+
+  subtitles.innerHTML = "";
+  let shown = [];
+  const start = Date.now();
+
+  function update() {
+    const t = (Date.now() - start) / 1000;
+
+    for (let i = 0; i < lines.length; i++) {
+      if (t >= lines[i].time && !shown.includes(i)) {
+        shown.push(i);
+
+        const line = document.createElement("div");
+        line.style.marginBottom = "10px";
+        line.style.opacity = "0";
+        line.style.transition = "0.5s";
+
+        subtitles.appendChild(line);
+
+        setTimeout(() => {
+          line.style.opacity = "1";
+          typeText(line, lines[i].text);
+        }, 100);
+      }
+    }
+
+    if (shown.length < lines.length) {
+      requestAnimationFrame(update);
+    }
+  }
+
+  update();
+});
 </script>
 
 </body>
